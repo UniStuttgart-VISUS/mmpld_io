@@ -64,6 +64,12 @@ public:
 
 
     /**
+     * Returns the object space bounding box of the data.
+     */
+    std::array<float, 6> GetBBox() const noexcept { return file_header_.bbox; }
+
+
+    /**
      * Reads the specified frame form the file
      * 
      * @param idx index of the frame to read
