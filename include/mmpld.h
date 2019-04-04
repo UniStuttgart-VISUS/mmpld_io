@@ -58,7 +58,7 @@ public:
 
 
     /**
-     *´Returns the number of frames in the MMPLD file.
+     * Returns the number of frames in the MMPLD file.
      */
     constexpr unsigned int GetFrameCount() const noexcept { return file_header_.num_frames; }
 
