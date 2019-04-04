@@ -19,7 +19,7 @@ enum class vertex_type : unsigned char {
     DOUBLE_XYZ = 4 //< only valid for version 1.3 and in combination with UINT16_RGBA or DOUBLE_I
 };
 
-unsigned int vertex_size[] = {0, 12, 16, 6, 8};
+static unsigned int vertex_size[] = {0, 12, 16, 6, 8};
 
 enum class color_type : unsigned char {
     NONE = 0,
@@ -32,7 +32,7 @@ enum class color_type : unsigned char {
     DOUBLE_I = 7 //< only valid for version 1.3
 };
 
-unsigned int color_size[] = {0, 3, 4, 4, 12, 16, 8, 8};
+static unsigned int color_size[] = {0, 3, 4, 4, 12, 16, 8, 8};
 
 struct plain_list_header {
     unsigned char vert_type;
