@@ -20,9 +20,9 @@ struct plain_file_header {
 };
 
 struct version {
-    version() : major(0), minor(0) {}
-    unsigned char major;
-    unsigned char minor;
+    version() : major_(0), minor_(0) {}
+    unsigned char major_;
+    unsigned char minor_;
 };
 
 using version_t = version;
@@ -43,8 +43,8 @@ using file_header_t = file_header;
  */
 inline version_t ConvertVersion(unsigned short const version) noexcept {
     version_t ret;
-    ret.major = version / 100;
-    ret.minor = version % 100;
+    ret.major_ = version / 100;
+    ret.minor_ = version % 100;
     return ret;
 }
 
@@ -89,7 +89,7 @@ inline file_header_t ReadFileHeader(std::ifstream& file) {
  * Checks if the file has at least the requested version
  */
 constexpr bool IsVersion(file_header_t const& fh, unsigned short const major, unsigned short const minor) noexcept {
-    return fh.version.major >= major && fh.version.minor >= minor;
+    return fh.version.major_ >= major && fh.version.minor_ >= minor;
 }
 
 } // end namespace mmpld
