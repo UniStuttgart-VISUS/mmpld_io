@@ -62,9 +62,11 @@ struct list_header {
     std::array<float, 6> lbox; //< only for version 1.3 and later
 };
 
+using list_header_t = list_header;
+
 struct list_entry {
     list_entry() : vertex_offset(0), vertex_stride(0), color_offset(0), color_stride(0) {}
-    list_header list_header;
+    list_header_t list_header;
     unsigned int vertex_offset;
     unsigned int vertex_stride;
     unsigned int color_offset;

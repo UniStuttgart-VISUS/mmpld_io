@@ -6,6 +6,7 @@
 #pragma once
 
 #include <array>
+#include <cstring>
 #include <fstream>
 #include <stdexcept>
 
@@ -77,7 +78,7 @@ inline file_header_t ReadFileHeader(std::ifstream& file) {
     plain_file_header pfh;
     file.read(reinterpret_cast<char*>(&pfh), sizeof(pfh));
 
-    if (strcmp(pfh.magic, "MMPLD") != 0) {
+    if (std::strcmp(pfh.magic, "MMPLD") != 0) {
         throw std::logic_error("Bad MMPLD Header");
     }
 

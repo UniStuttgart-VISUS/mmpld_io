@@ -17,5 +17,6 @@ if (BUILD_TEST)
         test/mmpld_io_test.cpp
     )
     target_link_libraries(mmpld_io_test mmpld_io)
+    set_property(TARGET mmpld_io_test PROPERTY CXX_STANDARD 11)
     install(TARGETS mmpld_io_test RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 endif()

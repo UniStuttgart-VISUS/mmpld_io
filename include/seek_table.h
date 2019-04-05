@@ -26,7 +26,7 @@ inline seek_table_t ReadSeekTable(std::ifstream& file, unsigned int const num_fr
 
     file.read(reinterpret_cast<char*>(ret.data()), (num_frames + 1) * sizeof(seek_table_t::value_type));
 
-    auto const check = std::all_of(ret.begin(), ret.end(), [](auto const& val) { return val >= 60; });
+    auto const check = std::all_of(ret.begin(), ret.end(), [](uint64_t const& val) { return val >= 60; });
 
     // TODO Check also file size
     if (!check) {
