@@ -95,10 +95,10 @@ public:
 
         plain_frame_header pfh;
 
-        if (IsVersion(file_header_, 1, 2)) {
+        /*if (IsVersion(file_header_, 1, 2)) {
             std::copy(it, it + 4, reinterpret_cast<char*>(&pfh.timestamp));
             it += 4;
-        }
+        }*/
 
         std::copy(it, it + 4, reinterpret_cast<char*>(&pfh.num_particle_lists));
         it += 4;
