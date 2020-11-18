@@ -38,7 +38,7 @@ public:
         // read file header and seek_table
         file_header_ = ReadFileHeader(file_);
 
-        seek_table_ = ReadSeekTable(file_, file_header_.num_frames);
+        seek_table_ = ReadSeekTable(filename, file_, file_header_.num_frames);
     }
 
 
@@ -95,10 +95,10 @@ public:
 
         plain_frame_header pfh;
 
-        /*if (IsVersion(file_header_, 1, 2)) {
+        if (IsAtLeastVersion(file_header_, 1, 2)) {
             std::copy(it, it + 4, reinterpret_cast<char*>(&pfh.timestamp));
             it += 4;
-        }*/
+        }
 
         std::copy(it, it + 4, reinterpret_cast<char*>(&pfh.num_particle_lists));
         it += 4;
@@ -135,7 +135,7 @@ public:
 
             if (HasData(entry.list_header.vert_type)) {
 
-                if (IsVersion(file_header_, 1, 3)) {
+                if (IsAtLeastVersion(file_header_, 1, 3)) {
                     std::copy(it, it + 24, reinterpret_cast<char*>(entry.list_header.lbox.data()));
                     it += 24;
                 }

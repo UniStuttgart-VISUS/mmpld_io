@@ -11,7 +11,7 @@
 
 namespace mmpld {
 
-enum class vertex_type : unsigned char {
+enum class vertex_type : uint8_t {
     NONE = 0,
     FLOAT_XYZ = 1,
     FLOAT_XYZR = 2,
@@ -19,9 +19,9 @@ enum class vertex_type : unsigned char {
     DOUBLE_XYZ = 4 //< only valid for version 1.3 and in combination with UINT16_RGBA or DOUBLE_I
 };
 
-static unsigned int vertex_size[] = {0, 12, 16, 6, 8};
+static uint32_t vertex_size[] = {0, 12, 16, 6, 8};
 
-enum class color_type : unsigned char {
+enum class color_type : uint8_t {
     NONE = 0,
     UINT8_RGB = 1,
     UINT8_RGBA = 2,
@@ -32,13 +32,13 @@ enum class color_type : unsigned char {
     DOUBLE_I = 7 //< only valid for version 1.3
 };
 
-static unsigned int color_size[] = {0, 3, 4, 4, 12, 16, 8, 8};
+static uint32_t color_size[] = {0, 3, 4, 4, 12, 16, 8, 8};
 
 struct plain_list_header {
-    unsigned char vert_type;
-    unsigned char col_type;
+    uint8_t vert_type;
+    uint8_t col_type;
     float global_radius;
-    unsigned char global_color[4];
+    uint8_t global_color[4];
     float intensity_range[2];
     uint64_t particle_count;
     float lbox[6]; //< only for version 1.3 and later
