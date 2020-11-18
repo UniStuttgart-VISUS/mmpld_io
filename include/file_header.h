@@ -90,8 +90,16 @@ inline file_header_t ReadFileHeader(std::ifstream& file) {
 /**
  * Checks if the file has at least the requested version
  */
-constexpr bool IsVersion(file_header_t const& fh, unsigned short const major, unsigned short const minor) noexcept {
+constexpr bool IsAtLeastVersion(file_header_t const& fh, unsigned short const major, unsigned short const minor) noexcept {
     return (fh.version.major_ == major && fh.version.minor_ >= minor) || fh.version.major_ > major;
+}
+
+
+/**
+ * Checks if the file has exactly the requested version
+ */
+constexpr bool IsVersion(file_header_t const& fh, unsigned short const major, unsigned short const minor) noexcept {
+    return fh.version.major_ == major && fh.version.minor_ == minor;
 }
 
 } // end namespace mmpld
