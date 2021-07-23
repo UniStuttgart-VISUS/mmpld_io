@@ -14,16 +14,16 @@ namespace mmpld {
 
 struct plain_file_header {
     char magic[6];
-    unsigned short version;
-    unsigned int num_frames;
+    uint16_t version;
+    uint32_t num_frames;
     float bbox[6];
     float cbox[6];
 };
 
 struct version {
     version() : major_(0), minor_(0) {}
-    unsigned char major_;
-    unsigned char minor_;
+    uint8_t major_;
+    uint8_t minor_;
 };
 
 using version_t = version;
@@ -31,7 +31,7 @@ using version_t = version;
 struct file_header {
     file_header() : num_frames(0), bbox(), cbox() {}
     version_t version;
-    unsigned int num_frames;
+    uint32_t num_frames;
     std::array<float, 6> bbox;
     std::array<float, 6> cbox;
 };
@@ -57,6 +57,7 @@ inline file_header_t ConvertFileHeader(plain_file_header const& pfh) {
     file_header_t ret;
 
     ret.version = ConvertVersion(pfh.version);
+
     ret.num_frames = pfh.num_frames;
     std::copy(std::begin(pfh.bbox), std::end(pfh.bbox), ret.bbox.begin());
     std::copy(std::begin(pfh.cbox), std::end(pfh.cbox), ret.cbox.begin());
@@ -89,8 +90,16 @@ inline file_header_t ReadFileHeader(std::ifstream& file) {
 /**
  * Checks if the file has at least the requested version
  */
+constexpr bool IsAtLeastVersion(file_header_t const& fh, unsigned short const major, unsigned short const minor) noexcept {
+    return (fh.version.major_ == major && fh.version.minor_ >= minor) || fh.version.major_ > major;
+}
+
+
+/**
+ * Checks if the file has exactly the requested version
+ */
 constexpr bool IsVersion(file_header_t const& fh, unsigned short const major, unsigned short const minor) noexcept {
-    return fh.version.major_ >= major && fh.version.minor_ >= minor;
+    return fh.version.major_ == major && fh.version.minor_ == minor;
 }
 
 } // end namespace mmpld
