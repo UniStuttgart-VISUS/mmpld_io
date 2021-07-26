@@ -9,6 +9,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <vector>
+#include <sys/stat.h>
 
 namespace mmpld {
 
