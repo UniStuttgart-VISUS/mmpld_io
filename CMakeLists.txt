@@ -1,8 +1,10 @@
+cmake_minimum_required(VERSION 3.8)
+
 project(mmpld_io)
 
 file(GLOB_RECURSE header_files RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "include/*.h")
 
-add_library(mmpld_io INTERFACE)
+add_library(mmpld_io INTERFACE ${header_files})
 target_include_directories(mmpld_io INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
@@ -17,6 +19,6 @@ if (BUILD_TEST)
         test/mmpld_io_test.cpp
     )
     target_link_libraries(mmpld_io_test mmpld_io)
-    set_property(TARGET mmpld_io_test PROPERTY CXX_STANDARD 11)
+    set_property(TARGET mmpld_io_test PROPERTY CXX_STANDARD 17)
     install(TARGETS mmpld_io_test RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 endif()

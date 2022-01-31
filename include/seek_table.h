@@ -6,10 +6,10 @@
 #pragma once
 
 #include <algorithm>
+#include <filesystem>
 #include <fstream>
 #include <stdexcept>
 #include <vector>
-#include <sys/stat.h>
 
 namespace mmpld {
 
@@ -17,9 +17,9 @@ using seek_table_t = std::vector<uint64_t>;
 
 /**
  * Reads the seek table from the given file, assuming that the file pointer is at the correct position.
- * 
+ *
  * @throws logic_error if a table value is below 60 (seek table is corrupt) or the last entry is not equal to the file size.
- * 
+ *
  * @returns the seek table with num_frames+1 entries. The last entry should be EOF position
  */
 inline seek_table_t ReadSeekTable(std::string const& filename, std::ifstream& file, unsigned int const num_frames) {
@@ -34,9 +34,9 @@ inline seek_table_t ReadSeekTable(std::string const& filename, std::ifstream& fi
         throw std::logic_error("Corrupt seek table");
     }
 
-    struct stat stat_buffer;
-    stat(filename.c_str(), &stat_buffer);
-	auto const check2 = ret.back() == stat_buffer.st_size;
+    auto const file_size = std::filesystem::file_size(filename);
+
+    auto const check2 = ret.back() == file_size;
 
     if (!check2) {
         throw std::logic_error("Last seek table entry and file size do not match");
