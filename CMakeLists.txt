@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.8)
 
+cmake_policy(SET CMP0076 NEW)
+
 project(mmpld_io)
 
 file(GLOB_RECURSE header_files RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "include/*.h")
 
-add_library(mmpld_io INTERFACE ${header_files})
+add_library(mmpld_io INTERFACE)
+target_sources(mmpld_io INTERFACE ${header_files})
 target_include_directories(mmpld_io INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
